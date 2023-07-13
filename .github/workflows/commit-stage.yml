@@ -33,6 +33,11 @@ jobs:
         run: |
           mvn clean install
       - name: Build container images
+        env:
+          GTHB_CLIENT_ID: ${{ secrets.GTHB_CLIENT_ID }}
+          GTHB_CLIENT_SECRET: ${{ secrets.GTHB_CLIENT_SECRET }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}      
         run: |
           mvn spring-boot:build-image \
             -Dspring-boot.build-image.imageName=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}                      

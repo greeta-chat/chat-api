@@ -30,7 +30,11 @@ jobs:
           cache: maven
       - name: Build
         run: |
-          mvn clean install
+          mvn clean install \
+            -DGTHB_CLIENT_ID="${{ env.GTHB_CLIENT_ID }}" \
+            -DGTHB_CLIENT_SECRET="${{ env.GTHB_CLIENT_SECRET }}" \
+            -DGOOGLE_CLIENT_ID="${{ env.GOOGLE_CLIENT_ID }}" \
+            -DGOOGLE_CLIENT_SECRET="${{ env.GOOGLE_CLIENT_SECRET }}"
       - name: Build container images
         run: |
           mvn spring-boot:build-image \

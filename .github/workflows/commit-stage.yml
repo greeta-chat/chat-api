@@ -38,7 +38,7 @@ jobs:
       - name: Build container images
         run: |
           mvn spring-boot:build-image \
-            -Dspring-boot.build-image.imageName=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+            -Dspring-boot.build-image.imageName=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }} \
             -DGTHB_CLIENT_ID="${{ env.GTHB_CLIENT_ID }}" \
             -DGTHB_CLIENT_SECRET="${{ env.GTHB_CLIENT_SECRET }}" \
             -DGOOGLE_CLIENT_ID="${{ env.GOOGLE_CLIENT_ID }}" \

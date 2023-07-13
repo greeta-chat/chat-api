@@ -5,6 +5,10 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME: greeta-chat/chat-api
   VERSION: ${{ github.sha }}
+  GTHB_CLIENT_ID: ${{ secrets.GTHB_CLIENT_ID }}
+  GTHB_CLIENT_SECRET: ${{ secrets.GTHB_CLIENT_SECRET }}
+  GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+  GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
 
 jobs:
   package:
@@ -25,20 +29,18 @@ jobs:
           java-version: 17
           cache: maven
       - name: Build
-        env:
-          GTHB_CLIENT_ID: ${{ secrets.GTHB_CLIENT_ID }}
-          GTHB_CLIENT_SECRET: ${{ secrets.GTHB_CLIENT_SECRET }}
-          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
-          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
         run: |
+          export GTHB_CLIENT_ID = "${{ secrets.GTHB_CLIENT_ID }}"
+          export GTHB_CLIENT_SECRET = "${{ secrets.GTHB_CLIENT_SECRET }}"
+          export GOOGLE_CLIENT_ID = "${{ secrets.GOOGLE_CLIENT_ID }}"
+          export GOOGLE_CLIENT_SECRET = "${{ secrets.GOOGLE_CLIENT_SECRET }}"
           mvn clean install
       - name: Build container images
-        env:
-          GTHB_CLIENT_ID: ${{ secrets.GTHB_CLIENT_ID }}
-          GTHB_CLIENT_SECRET: ${{ secrets.GTHB_CLIENT_SECRET }}
-          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
-          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}      
         run: |
+          export GTHB_CLIENT_ID = "${{ secrets.GTHB_CLIENT_ID }}"
+          export GTHB_CLIENT_SECRET = "${{ secrets.GTHB_CLIENT_SECRET }}"
+          export GOOGLE_CLIENT_ID = "${{ secrets.GOOGLE_CLIENT_ID }}"
+          export GOOGLE_CLIENT_SECRET = "${{ secrets.GOOGLE_CLIENT_SECRET }}"
           mvn spring-boot:build-image \
             -Dspring-boot.build-image.imageName=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}                      
       - name: Log into container registry

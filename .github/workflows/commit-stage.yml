@@ -30,17 +30,17 @@ jobs:
           cache: maven
       - name: Build
         run: |
-          export GTHB_CLIENT_ID = "${{ secrets.GTHB_CLIENT_ID }}"
-          export GTHB_CLIENT_SECRET = "${{ secrets.GTHB_CLIENT_SECRET }}"
-          export GOOGLE_CLIENT_ID = "${{ secrets.GOOGLE_CLIENT_ID }}"
-          export GOOGLE_CLIENT_SECRET = "${{ secrets.GOOGLE_CLIENT_SECRET }}"
+          export GTHB_CLIENT_ID="${{ secrets.GTHB_CLIENT_ID }}"
+          export GTHB_CLIENT_SECRET="${{ secrets.GTHB_CLIENT_SECRET }}"
+          export GOOGLE_CLIENT_ID="${{ secrets.GOOGLE_CLIENT_ID }}"
+          export GOOGLE_CLIENT_SECRET="${{ secrets.GOOGLE_CLIENT_SECRET }}"
           mvn clean install
       - name: Build container images
         run: |
-          export GTHB_CLIENT_ID = "${{ secrets.GTHB_CLIENT_ID }}"
-          export GTHB_CLIENT_SECRET = "${{ secrets.GTHB_CLIENT_SECRET }}"
-          export GOOGLE_CLIENT_ID = "${{ secrets.GOOGLE_CLIENT_ID }}"
-          export GOOGLE_CLIENT_SECRET = "${{ secrets.GOOGLE_CLIENT_SECRET }}"
+          export GTHB_CLIENT_ID="${{ secrets.GTHB_CLIENT_ID }}"
+          export GTHB_CLIENT_SECRET="${{ secrets.GTHB_CLIENT_SECRET }}"
+          export GOOGLE_CLIENT_ID="${{ secrets.GOOGLE_CLIENT_ID }}"
+          export GOOGLE_CLIENT_SECRET="${{ secrets.GOOGLE_CLIENT_SECRET }}"
           mvn spring-boot:build-image \
             -Dspring-boot.build-image.imageName=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}                      
       - name: Log into container registry

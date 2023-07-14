@@ -24,7 +24,6 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
                         .requestMatchers("/").hasAuthority(CHAT_USER)
                         .requestMatchers("/login", "/oauth2/**").permitAll()
-                        .requestMatchers("/resources/**", "/static/**").permitAll()
                         .anyRequest().authenticated())
                 .oauth2Login(oauth2Login -> oauth2Login
                         .loginPage("/login").defaultSuccessUrl("/")
